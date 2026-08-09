@@ -10,3 +10,9 @@ RUN yes | sdkmanager --install "platforms;android-35" || true
 
 # Verify the install (fails the build early if something went wrong)
 RUN sdkmanager --list_installed | grep "build-tools;35.0.0"
+
+# Enable the Flutter web SDK and predownload the web engine artifacts
+# (dart2js, dartdevc, canvas kit, ...) so `flutter build web` doesn't
+# stall on a lazy download during the actual build
+RUN flutter config --enable-web \
+    && flutter precache --web
