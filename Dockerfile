@@ -5,7 +5,7 @@ FROM ghcr.io/gmeligio/flutter-android:3.35.7
 # the install and switch back — the same pattern the base image uses.
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends zip \
+    && apt-get install -y --no-install-recommends zip jq \
     && rm -rf /var/lib/apt/lists/*
 USER flutter:flutter
 
