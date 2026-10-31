@@ -1,4 +1,4 @@
-FROM ghcr.io/gmeligio/flutter-android:3.35.7
+FROM ghcr.io/gmeligio/flutter-android:3.47.9
 
 # Install the zip utility (needed to package artifacts such as web builds).
 # The base image runs as a non-root user (flutter), so switch to root for
