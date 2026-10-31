@@ -5,8 +5,17 @@ FROM ghcr.io/gmeligio/flutter-android:3.35.7
 # the install and switch back — the same pattern the base image uses.
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends zip jq \
+    && apt-get install -y --no-install-recommends zip jq python3-pip \
     && rm -rf /var/lib/apt/lists/*
+
+# Telethon uploads build outputs to Telegram from a user account
+# (scripts/upload_telegram.py in the client repo). python-socks adds
+# TELEGRAM_PROXY support; cryptg speeds up large (150-200 MB) uploads.
+# PIP_BREAK_SYSTEM_PACKAGES allows a system-wide install on PEP 668
+# distros and is ignored by older pip.
+RUN PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install --no-cache-dir \
+        telethon "python-socks[asyncio]" cryptg \
+    && python3 -c "import telethon, python_socks, cryptg"
 USER flutter:flutter
 
 # Accept licenses (no-op if already accepted in the base image) and install
