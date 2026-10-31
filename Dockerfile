@@ -22,6 +22,7 @@ USER flutter:flutter
 # the specific Android build-tools version needed
 RUN yes | sdkmanager --licenses > /dev/null || true
 RUN yes | sdkmanager --install "build-tools;35.0.0" || true
+RUN yes | sdkmanager --install "platforms;android-31" || true
 RUN yes | sdkmanager --install "platforms;android-33" || true
 RUN yes | sdkmanager --install "platforms;android-34" || true
 RUN yes | sdkmanager --install "platforms;android-35" || true
